@@ -1,0 +1,11 @@
+{
+    "name": "Galaxy Nintendo Gameboy Plugin",
+    "platform": "ngameboy",
+    "guid": "3765ba17-db55-460e-8f5c-f7e19cc5bb79",
+    "version": "0.1.0",
+    "description": "Galaxy Nintendo Gameboy Plugin",
+    "author": "AHCoder",
+    "email": "",
+    "url": "https://github.com/AHCoder/galaxy-integration-ngameboy",
+    "script": "plugin.py"
+}

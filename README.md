@@ -2,7 +2,7 @@
 Game Boy Integration for GOG Galaxy 2.0
 
 ## Features
-* Looks for gba files in a folder you specify
+* Looks for gb, gbc, and gba files in a folder you specify
 * Supports launching games with mGBA
 
 ## Requirements

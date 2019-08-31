@@ -20,14 +20,16 @@ class BackendClient:
 
         self.get_rom_names()
 
-        # Retrieve the info for each gba found
+        # Retrieve the info for each rom found
         for rom in self.roms:
-            url = query_url.format(config.api_key, urllib.parse.quote(rom)) # Add in params to the above url
-            response = urllib.request.urlopen(url)
-            search_results = json.loads(response.read())
-            self.results.append(
-                [search_results["results"][0]["id"], search_results["results"][0]["name"]] # Add games in the form of list with id and name
-            )
+            # Add in params to the above url
+            url = query_url.format(config.api_key, urllib.parse.quote(rom))
+
+            with urllib.request.urlopen(url) as response:
+                search_results = json.loads(response.read())
+                self.results.append(
+                    [search_results["results"][0]["id"], search_results["results"][0]["name"]] # Add games in the form of list with id and name
+                )
 
         for x,y in zip(self.paths, self.results):
             x.extend(y)
@@ -36,10 +38,10 @@ class BackendClient:
 
 
     def get_rom_names(self):
-        # Search through directory for gba files (GB roms)
+        # Search through directory for gb, gbc, and gba files (GB roms)
         for root, dirs, files in os.walk(user_config.roms_path):
             for file in files:
-               if file.endswith(".gba"):
+               if file.lower().endswith((".gb", ".gbc", ".gba")):
                     self.paths.append([os.path.join(root, file)])
                     self.roms.append(os.path.splitext(os.path.basename(file))[0]) # Split name of file from it's path/extension
 

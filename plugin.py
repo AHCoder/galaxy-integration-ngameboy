@@ -126,12 +126,13 @@ class NintendoGameboyPlugin(Plugin):
         '''
         local_games = []        
         for game in self.games:
-            local_games.append(
-                LocalGame(
-                    game.id,
-                    LocalGameState.Installed
+            if game.path.startswith(user_config.installed_path):
+                local_games.append(
+                    LocalGame(
+                        game.id,
+                        LocalGameState.Installed
+                    )
                 )
-            )
         return local_games
 
 

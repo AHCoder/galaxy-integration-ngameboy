@@ -60,6 +60,14 @@ class BackendClient:
                     path = os.path.join(root, file)
                     self.roms[name] = path
 
+        # iterate installed games second to overwrite if rom is present in both locations
+        for root, dirs, files in os.walk(user_config.installed_path):
+            for file in files:
+               if file.lower().endswith((".gb", ".gbc", ".gba")):
+                    name = os.path.splitext(os.path.basename(file))[0] # Split name of file from it's path/extension
+                    path = os.path.join(root, file)
+                    self.roms[name] = path
+
 
     def _get_state_changes(self, old_list, new_list) -> list:
         old_dict = {x.game_id: x.local_game_state for x in old_list}

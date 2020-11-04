@@ -126,7 +126,7 @@ class NintendoGameboyPlugin(Plugin):
         '''
         local_games = []        
         for game in self.games:
-            if game.path.startswith(user_config.installed_path):
+            if game.path.startswith(user_config.installed_path) & os.path.exists(game.path):
                 local_games.append(
                     LocalGame(
                         game.id,
@@ -213,6 +213,25 @@ class NintendoGameboyPlugin(Plugin):
     async def get_local_games(self):
         return self.local_games_cache
 
+    def update_local_game_status(self, local_game: LocalGame) -> None:
+        if local_game.local_game_state == LocalGameState.None_:
+            removeId = -1
+            for game in self.games:
+                if game.id == local_game.game_id:
+                    newPath = game.path.replace(user_config.installed_path, user_config.roms_path)
+                    if os.path.exists(newPath):
+                        game.path = newPath # update path to the owned path
+                    else:
+                        removeId = game.id
+                    break
+
+            if removeId != -1:
+                # remove game from lists as it is no longer present
+                self.games = [game for game in self.games if game.id == removeId]
+                self.remove_game(removeId)
+
+        params = {"local_game": local_game}
+        self._notification_client.notify("local_game_status_changed", params)
 
 def main():
     create_and_run_plugin(NintendoGameboyPlugin, sys.argv)

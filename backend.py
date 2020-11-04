@@ -6,6 +6,8 @@ import urllib.request
 
 import user_config
 from definitions import GameBoyGame
+from galaxy.api.types import LocalGame
+from galaxy.api.consts import LicenseType, LocalGameState
 
 QUERY_URL = "https://www.giantbomb.com/api/search/?api_key={}&field_list=id,name&format=json&limit=1&query={}&resources=game"
 
@@ -24,6 +26,10 @@ class BackendClient:
         Used if the user chooses to pull from Giant Bomb database
         The first result is used and only call for id and name, in json format, limited to 1 result
         '''
+        # clear the lists so there are no duplicates if a sync occurs after initial run
+        self.roms = {}
+        self.games = []
+
         cache = self.plugin_instance.persistent_cache
         self._get_rom_names()
 

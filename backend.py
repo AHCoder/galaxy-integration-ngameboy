@@ -6,6 +6,8 @@ import urllib.request
 
 import user_config
 from definitions import GameBoyGame
+from galaxy.api.types import LocalGame
+from galaxy.api.consts import LicenseType, LocalGameState
 
 QUERY_URL = "https://www.giantbomb.com/api/search/?api_key={}&field_list=id,name&format=json&limit=1&query={}&resources=game"
 
@@ -24,6 +26,10 @@ class BackendClient:
         Used if the user chooses to pull from Giant Bomb database
         The first result is used and only call for id and name, in json format, limited to 1 result
         '''
+        # clear the lists so there are no duplicates if a sync occurs after initial run
+        self.roms = {}
+        self.games = []
+
         cache = self.plugin_instance.persistent_cache
         self._get_rom_names()
 
@@ -54,6 +60,14 @@ class BackendClient:
         Adds the rom name and path to the roms dict
         '''        
         for root, dirs, files in os.walk(user_config.roms_path):
+            for file in files:
+               if file.lower().endswith((".gb", ".gbc", ".gba")):
+                    name = os.path.splitext(os.path.basename(file))[0] # Split name of file from it's path/extension
+                    path = os.path.join(root, file)
+                    self.roms[name] = path
+
+        # iterate installed games second to overwrite if rom is present in both locations
+        for root, dirs, files in os.walk(user_config.installed_path):
             for file in files:
                if file.lower().endswith((".gb", ".gbc", ".gba")):
                     name = os.path.splitext(os.path.basename(file))[0] # Split name of file from it's path/extension

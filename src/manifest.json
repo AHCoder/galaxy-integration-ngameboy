@@ -2,10 +2,10 @@
     "name": "Galaxy Nintendo Gameboy Plugin",
     "platform": "ngameboy",
     "guid": "3765ba17-db55-460e-8f5c-f7e19cc5bb79",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "Galaxy Nintendo Gameboy Plugin",
     "author": "AHCoder",
-    "email": "",
+    "email": "AHCoder@users.noreply.github.com",
     "url": "https://github.com/AHCoder/galaxy-integration-ngameboy",
     "script": "plugin.py"
 }

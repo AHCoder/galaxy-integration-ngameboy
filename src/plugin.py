@@ -18,7 +18,7 @@ from version import __version__
 
 class NintendoGameboyPlugin(Plugin):
     def __init__(self, reader, writer, token):
-        super().__init__(Platform.SuperNintendoEntertainmentSystem, __version__, reader, writer, token)
+        super().__init__(Platform.NintendoGameBoy, __version__, reader, writer, token)
         
         ### Variables ###
         self.config = config.Config()

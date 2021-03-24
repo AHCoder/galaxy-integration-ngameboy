@@ -19,9 +19,9 @@ class AuthenticationHandler(BaseHTTPRequestHandler):
             css_loc = os.path.join(os.path.dirname(__file__), "website\css\main.css")
             with open(css_loc, "rb") as styles:
                 self.wfile.write(styles.read())
-        if self.path.endswith(".svg"):
-            self._set_headers("image/svg+xml")
-            image_loc = os.path.join(os.path.dirname(__file__), "website\images\header.svg")
+        if self.path.endswith(".jpg"):
+            self._set_headers("image/jpeg")
+            image_loc = os.path.join(os.path.dirname(__file__), "website\images\header.jpg")
             with open(image_loc, "rb") as image:
                 self.wfile.write(image.read())
         if "setconfig" in self.path:

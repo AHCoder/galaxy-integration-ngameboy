@@ -2,7 +2,7 @@
     "name": "Galaxy Nintendo Gameboy Plugin",
     "platform": "ngameboy",
     "guid": "3765ba17-db55-460e-8f5c-f7e19cc5bb79",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Galaxy Nintendo Gameboy Plugin",
     "author": "AHCoder",
     "email": "AHCoder@users.noreply.github.com",

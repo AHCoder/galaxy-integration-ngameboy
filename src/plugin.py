@@ -70,7 +70,7 @@ class NintendoGameboyPlugin(Plugin):
 
         self._launch_game(game_id, emu_path, fullscreen)
         logging.debug("DEV: Launch game has been called")
-        self.snes_client._set_session_start()
+        self.gb_client._set_session_start()
 
 
     def _launch_game(self, game_id, emu_path, fullscreen) -> None:
